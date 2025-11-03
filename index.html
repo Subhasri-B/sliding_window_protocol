@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simplest Sliding Window Protocol Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Simplest Sliding Window Protocol Simulator (Noiseless)</h1>
+  </header>
+
+  <div class="container">
+    <h2>Input Parameters</h2>
+    <form id="simForm">
+      <label>Number of Frames (N):</label>
+      <input type="number" id="numFrames" min="1" value="5"><br>
+
+      <label>Window Size (W):</label>
+      <input type="number" id="winSize" min="1" value="1"><br>
+
+      <label>Time per Frame (units):</label>
+      <input type="number" id="timePerFrame" min="1" value="2"><br>
+
+      <label>Show Step Animation:</label>
+      <input type="checkbox" id="animate" checked><br>
+
+      <button type="button" onclick="runSimulation()">Simulate</button>
+    </form>
+
+    <h2>Timeline Diagram</h2>
+    <canvas id="timeline"></canvas>
+
+    <div class="stats">
+      <h2>Summary Statistics</h2>
+      <table>
+        <tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Total Frames Transmitted</td><td id="framesTx"></td></tr>
+        <tr><td>Total ACKs Sent</td><td id="acksTx"></td></tr>
+        <tr><td>Total Time Units</td><td id="totalTime"></td></tr>
+        <tr><td>Efficiency</td><td id="efficiency"></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
