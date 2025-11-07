@@ -1,0 +1,89 @@
+:root{
+  --accent:#1e88e5;
+  --muted:#666;
+}
+*{box-sizing:border-box}
+body{
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  margin:0;color:#222;background:#f4f6f8;
+}
+header{
+  background:var(--accent);color:#fff;padding:14px 18px;text-align:center;
+}
+header h1{margin:0;font-size:1.2rem}
+.top-menu{margin-top:8px;display:flex;gap:8px;justify-content:center}
+.top-menu button{background:#ff9800;border:none;padding:6px 12px;border-radius:6px;color:#fff;font-weight:600;cursor:pointer}
+.container{max-width:1200px;margin:18px auto;padding:18px;background:#fff;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:6px 4px}
+.controls h2{width:100%;color:var(--accent);margin:0 0 6px 0}
+.controls label{min-width:200px;font-weight:600}
+.controls input, .controls select{padding:6px 8px;border-radius:6px;border:1px solid #ccc}
+.control-buttons{display:flex;gap:8px;align-items:center;margin-left:auto}
+.control-buttons button{background:var(--accent);color:#fff;padding:8px 14px;border-radius:6px;border:none;cursor:pointer}
+.hidden{display:none}
+
+/* diagram area */
+.diagram{margin-top:18px}
+.diagram h2{color:var(--accent);margin-bottom:8px}
+#canvasWrap{border:1px solid #ddd;border-radius:10px;padding:8px;background:#fff;height:820px;overflow:auto} /* elongated viewing area */
+canvas{background:#ffffff;border-radius:6px;display:block;margin:0 auto}
+
+/* stats */
+.stats{margin-top:18px}
+.stats h2{color:var(--accent)}
+#statsTable{width:100%;max-width:760px;border-collapse:collapse;margin-top:10px}
+#statsTable th,#statsTable td{border:1px solid #e0e0e0;padding:8px;text-align:center}
+#statsTable th{background:#f1f8ff;color:var(--accent)}
+#timelineContainer {
+  width: 100%;
+  height: 600px;
+  overflow-y: scroll;       /* Enables vertical scrolling */
+  overflow-x: hidden;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background-color: #fafafa;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+#timelineCanvas {
+  width: 1200px;
+  height: 2000px;           /* Extended vertical space for arrows */
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+.popup {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.popup-image {
+  width: 80%;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 2px solid #333;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
