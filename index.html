@@ -1,49 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simplest Sliding Window Protocol Simulator</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Protocol Simplest — Sliding Window Simulator</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <h1>Simplest Sliding Window Protocol Simulator (Noiseless)</h1>
+    <h1>Protocol Simplest — Sliding Window Simulator</h1>
+    <nav class="top-menu">
+      <button id="devBtn">Developed by</button>
+      <button id="helpBtn">Help</button>
+      <button id="downloadBtn">Download</button>
+    </nav>
   </header>
 
-  <div class="container">
-    <h2>Input Parameters</h2>
-    <form id="simForm">
+  <main class="container">
+    <section class="controls">
+      <h2>Input Parameters</h2>
+
       <label>Number of Frames (N):</label>
-      <input type="number" id="numFrames" min="1" value="5"><br>
+      <input type="number" id="numFrames" min="1" value="8" />
 
       <label>Window Size (W):</label>
-      <input type="number" id="winSize" min="1" value="1"><br>
+      <input type="number" id="winSize" min="1" value="1" />
 
       <label>Time per Frame (units):</label>
-      <input type="number" id="timePerFrame" min="1" value="2"><br>
+      <input type="number" id="timePerFrame" min="1" value="2" />
 
-      <label>Show Step Animation:</label>
-      <input type="checkbox" id="animate" checked><br>
+      <label>Error Type:</label>
+      <select id="errorType">
+        <option value="none">No Error (Noiseless)</option>
+        <option value="frame_lost">Frame Lost</option>
+        <option value="ack_lost">ACK Lost</option>
+        <option value="frame_timeout">Frame Timeout</option>
+        <option value="ack_timeout">ACK Timeout</option>
+      </select>
 
-      <button type="button" onclick="runSimulation()">Simulate</button>
-    </form>
+      <label>Error Mode:</label>
+      <select id="errorMode" disabled>
+        <option value="none">--</option>
+        <option value="random">Random</option>
+        <option value="user">User Defined</option>
+        <option value="nth">Every Nth</option>
+      </select>
 
-    <h2>Timeline Diagram</h2>
-    <canvas id="timeline"></canvas>
+      <div id="userFrameDiv" class="hidden">
+        <label>Frame No. (for frame loss/timeout):</label>
+        <input type="number" id="userFrameNo" min="1" />
+      </div>
 
-    <div class="stats">
-      <h2>Summary Statistics</h2>
-      <table>
-        <tr><th>Metric</th><th>Value</th></tr>
-        <tr><td>Total Frames Transmitted</td><td id="framesTx"></td></tr>
-        <tr><td>Total ACKs Sent</td><td id="acksTx"></td></tr>
-        <tr><td>Total Time Units</td><td id="totalTime"></td></tr>
-        <tr><td>Efficiency</td><td id="efficiency"></td></tr>
+      <div id="userAckDiv" class="hidden">
+        <label>ACK No. (for ack loss/timeout):</label>
+        <input type="number" id="userAckNo" min="1" />
+      </div>
+
+      <div id="nthDiv" class="hidden">
+        <label>Every n (nth loss):</label>
+        <input type="number" id="nthValue" min="2" value="3" />
+      </div>
+
+      <div class="control-buttons">
+        <button id="simulateBtn">Simulate</button>
+        <button id="clearBtn">Clear</button>
+      </div>
+    </section>
+
+    <section class="diagram">
+      <h2>Timeline Diagram</h2>
+      <div id="canvasWrap">
+        <canvas id="timelineCanvas" width="1200" height="1100"></canvas>
+      </div>
+    </section>
+
+    <section class="stats">
+      <h2>Statistics</h2>
+      <table id="statsTable">
+        <tr><th>Window Size</th><td id="statWin">-</td></tr>
+        <tr><th>Total Frames</th><td id="statFrames">-</td></tr>
+        <tr><th>Frames per Unit</th><td id="statFramesPerUnit">-</td></tr>
+        <tr><th>Time per Frame (units)</th><td id="statTimePerFrame">-</td></tr>
+        <tr><th>Error Type (mode)</th><td id="statErrorType">-</td></tr>
+        <tr><th>Frames Lost</th><td id="statFramesLost">0</td></tr>
+        <tr><th>ACKs Lost</th><td id="statAcksLost">0</td></tr>
+        <tr><th>Retransmissions</th><td id="statRetrans">0</td></tr>
+        <tr><th>Successful Frames</th><td id="statSuccess">0</td></tr>
       </table>
+    </section>
+  </main>
+  <div id="devPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">&times;</span>
+      <h3>Developed by:</h3>
+      <p>Niranjan Kumar S – 24BCE1769<br>
+        Subhasri Balachandiran – 24BCE1833<br>
+        Ranse Roger J – 24BCE1531<br><br>
+        Mentor: Dr. Swaminathan
+      </p>
+      <img src="mentor.jpg" alt="Developers" class="popup-image">
     </div>
   </div>
+  <button onclick="openPopup('developerPopup')">Developed By</button>
 
+  <!-- html2canvas required for download -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
