@@ -1,89 +1,325 @@
-:root{
-  --accent:#1e88e5;
-  --muted:#666;
+/* ===============================
+   Root + Base Styles
+================================== */
+:root {
+  --accent: #1e88e5;
+  --muted: #666;
+  --bg-light: #f4f6f8;
+  --white: #fff;
+  --shadow: rgba(0, 0, 0, 0.1);
 }
-*{box-sizing:border-box}
-body{
+
+* {
+  box-sizing: border-box;
+}
+
+body {
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  margin:0;color:#222;background:#f4f6f8;
+  margin: 0;
+  color: #222;
+  background: var(--bg-light);
 }
-header{
-  background:var(--accent);color:#fff;padding:14px 18px;text-align:center;
+
+/* ===============================
+   Header + Top Menu
+================================== */
+header {
+  background: var(--accent);
+  color: #fff;
+  padding: 16px 18px 24px;
+  text-align: center;
+  box-shadow: 0 2px 6px var(--shadow);
 }
-header h1{margin:0;font-size:1.2rem}
-.top-menu{margin-top:8px;display:flex;gap:8px;justify-content:center}
-.top-menu button{background:#ff9800;border:none;padding:6px 12px;border-radius:6px;color:#fff;font-weight:600;cursor:pointer}
-.container{max-width:1200px;margin:18px auto;padding:18px;background:#fff;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:6px 4px}
-.controls h2{width:100%;color:var(--accent);margin:0 0 6px 0}
-.controls label{min-width:200px;font-weight:600}
-.controls input, .controls select{padding:6px 8px;border-radius:6px;border:1px solid #ccc}
-.control-buttons{display:flex;gap:8px;align-items:center;margin-left:auto}
-.control-buttons button{background:var(--accent);color:#fff;padding:8px 14px;border-radius:6px;border:none;cursor:pointer}
-.hidden{display:none}
 
-/* diagram area */
-.diagram{margin-top:18px}
-.diagram h2{color:var(--accent);margin-bottom:8px}
-#canvasWrap{border:1px solid #ddd;border-radius:10px;padding:8px;background:#fff;height:820px;overflow:auto} /* elongated viewing area */
-canvas{background:#ffffff;border-radius:6px;display:block;margin:0 auto}
+header h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
 
-/* stats */
-.stats{margin-top:18px}
-.stats h2{color:var(--accent)}
-#statsTable{width:100%;max-width:760px;border-collapse:collapse;margin-top:10px}
-#statsTable th,#statsTable td{border:1px solid #e0e0e0;padding:8px;text-align:center}
-#statsTable th{background:#f1f8ff;color:var(--accent)}
-#timelineContainer {
-  width: 100%;
-  height: 600px;
-  overflow-y: scroll;       /* Enables vertical scrolling */
-  overflow-x: hidden;
-  border: 2px solid #333;
+.top-menu {
+  margin-top: 12px;
+}
+
+.top-menu button {
+  background: #fff;
+  color: var(--accent);
+  border: none;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.15s;
+}
+
+.top-menu button:hover {
+  background: #e3f2fd;
+  transform: translateY(-1px);
+}
+
+/* ===============================
+   Main Layout (Vertical Stack)
+================================== */
+main.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+  gap: 25px;
+}
+
+section {
+  background: var(--white);
   border-radius: 10px;
-  background-color: #fafafa;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+section h2 {
+  color: var(--accent);
+  font-size: 1.3rem;
+  border-bottom: 2px solid #e3f2fd;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+/* ===============================
+   Controls Section (Top)
+================================== */
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.controls label {
+  display: block;
+  font-weight: 600;
+  margin: 10px 0 4px;
+  color: var(--muted);
+  text-align: left;
+}
+
+.controls input,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+.controls input:focus,
+.controls select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.control-buttons {
   margin-top: 20px;
-  padding: 10px;
+  text-align: center;
+}
+
+.control-buttons button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.25s;
+}
+
+.control-buttons button:hover {
+  background: #1565c0;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ===============================
+   Diagram Section (Middle)
+================================== */
+.diagram {
+  text-align: center;
+}
+
+#canvasWrap {
+  overflow-x: auto;
+  padding: 10px 0;
 }
 
 #timelineCanvas {
-  width: 1200px;
-  height: 2000px;           /* Extended vertical space for arrows */
-  background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  border-radius: 6px;
+  background: #fafafa;
 }
+
+/* ===============================
+   Statistics Section (Bottom)
+================================== */
+.stats {
+  text-align: left;
+}
+
+.stats table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.stats th,
+.stats td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.stats th {
+  color: var(--muted);
+  width: 55%;
+}
+
+.stats td {
+  font-weight: 600;
+  color: #333;
+}
+
+/* ===============================
+   Popups (DevelopedBy / Help / Learn)
+================================== */
 .popup {
   display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .popup-content {
   background: #fff;
-  padding: 20px;
+  margin: 8% auto;
+  padding: 25px;
   border-radius: 10px;
-  text-align: center;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  position: relative;
-}
-
-.popup-image {
   width: 80%;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 2px solid #333;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-out;
 }
 
-.close-btn {
-  position: absolute;
-  top: 10px; right: 15px;
-  font-size: 20px;
-  cursor: pointer;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: var(--accent);
+}
+
+/* ===============================
+   Developed By Popup Content
+================================== */
+.team-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  gap: 25px;
+}
+
+.team-grid div {
+  text-align: center;
+}
+
+.team-grid img,
+.mentor img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+}
+
+.team-grid p {
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.mentor {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.mentor p {
+  margin-top: 8px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* ===============================
+   Responsive Design
+================================== */
+@media (max-width: 700px) {
+  main.container {
+    padding: 20px;
+  }
+
+  .controls input,
+  .controls select {
+    font-size: 0.9rem;
+  }
+
+  #timelineCanvas {
+    width: 100%;
+  }
+}
+/* ===============================
+   Scrollable Developed By Popup
+================================== */
+#developedByPopup .popup-content {
+  max-height: 80vh;        /* Limit the height to 80% of viewport */
+  overflow-y: auto;         /* Enable vertical scrolling if needed */
+  scrollbar-width: thin;    /* Slim scrollbar for Firefox */
+  scrollbar-color: var(--accent) #f0f0f0;
+}
+
+/* Optional: prettier scrollbar for Chrome/Edge */
+#developedByPopup .popup-content::-webkit-scrollbar {
+  width: 8px;
+}
+#developedByPopup .popup-content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+#developedByPopup .popup-content::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
